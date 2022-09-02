@@ -5,11 +5,9 @@ import com.spring.advanced.trace.TraceStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.IntStream;
-
 @Slf4j
 @Component // 싱글턴 사용
-public class helloTraceV1 {
+public class HelloTraceV1 {
 
     private static final String START_PREFIX = "-->";
     private static final String COMPLETE_PREFIX = "<--";
@@ -20,6 +18,12 @@ public class helloTraceV1 {
         Long startTimeMs = System.currentTimeMillis();
         log.info("[{}] {}{}", traceId.getId(), addSpace(START_PREFIX, traceId.getLevel()), message);
         return new TraceStatus(traceId, startTimeMs, message);
+    }
+
+    public TraceStatus beginSync(TraceId beforeId, String message) {
+        TraceId afterId = beforeId.createNextId();
+        log.info("[" + afterId.getId() + "] " + addSpace(START_PREFIX, afterId.getLevel()) + message);
+        return new TraceStatus(afterId, System.currentTimeMillis(), message);
     }
 
     public void end(TraceStatus status) {
