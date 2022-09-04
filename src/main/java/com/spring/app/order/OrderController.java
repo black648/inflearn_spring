@@ -1,7 +1,7 @@
 package com.spring.app.order;
 
 import com.spring.advanced.trace.TraceStatus;
-import com.spring.advanced.trace.helloTrace.HelloTraceV1;
+import com.spring.advanced.trace.logTrace.LogTrace;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class OrderController {
 
-    private final HelloTraceV1 trace;
+    private final LogTrace trace;
     private final OrderService orderService;
 
     @GetMapping("/order/save")
